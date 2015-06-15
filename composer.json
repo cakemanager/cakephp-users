@@ -1,0 +1,27 @@
+{
+  "name": "cakemanager/cakephp-users",
+  "description": "Users plugin for CakePHP",
+  "type": "cakephp-plugin",
+  "require": {
+    "php": ">=5.4.16",
+    "cakephp/cakephp": "~3.0",
+    "cakemanager/cakephp-utils": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+  "suggest": {
+    "cakemanager/cakephp-cakeadmin": "Dynamic admin-panel for your application"
+  },
+  "autoload": {
+    "psr-4": {
+      "Users\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Users\\Test\\": "tests",
+      "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+    }
+  }
+}
