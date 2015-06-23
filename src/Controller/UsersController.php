@@ -14,8 +14,20 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
+    }
+
+    /**
+     * beforeFilter
+     *
+     * @param \Cake\Event\Event $event Event.
+     * @return void
+     */
+    public function beforeFilter(\Cake\Event\Event $event)
+    {
+        parent::beforeFilter($event);
 
         $this->Auth->allow([
+            'login',
             'activate',
             'forgot',
             'reset',
