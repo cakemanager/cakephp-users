@@ -16,6 +16,7 @@ namespace Users\Model\Table;
 
 use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\Event\EventManager;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -156,8 +157,19 @@ class UsersTable extends Table
      */
     public function beforeSave(Event $event, $entity, $options)
     {
-        if (!empty($entity->get('new_password'))) {
+        $newPassword = $entity->get('new_password');
+
+        if (!empty($newPassword)) {
             $entity->set('password', $entity->new_password); // set for password-changes
+        }
+    }
+
+    public function afterSave(Event $event, Entity $entity, ArrayObject $options) {
+        if($entity->isNew()) {
+            $event = new Event('Model.Users.afterRegister', $this, [
+                'user' => $entity
+            ]);
+            EventManager::instance()->dispatch($event);
         }
     }
 
