@@ -40,7 +40,8 @@ class UserManagerComponent extends Component
                     'fields' => [
                         'username' => 'email',
                         'password' => 'password'
-                    ]
+                    ],
+                    'scope' => ['Users.active' => true],
                 ],
             ],
             'loginAction' => [
