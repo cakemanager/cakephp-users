@@ -28,6 +28,7 @@ class AppController extends BaseController
             $this->layout = 'Users.login';
         }
 
+        parent::beforeFilter($event);
     }
 
 }
