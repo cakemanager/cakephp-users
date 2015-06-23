@@ -16,6 +16,7 @@ class UsersController extends AppController
         parent::initialize();
 
         $this->Auth->allow([
+            'activate',
             'forgot',
             'reset',
         ]);
