@@ -81,7 +81,7 @@ class UsersController extends AppController
         }
 
         // If the user has been activated
-        if ($this->Users->activateUser($email, $requestKey)) {
+        if ($this->Users->activate($email, $requestKey)) {
             $this->Flash->success(__('Congratulations! Your account has been activated!'));
             return $this->redirect('/login');
         }

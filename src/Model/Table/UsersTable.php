@@ -219,4 +219,28 @@ class UsersTable extends Table
         return false;
     }
 
+    /**
+     * Activate
+     *
+     * Activates an user
+     *
+     * @param string $email E-mailaddress of the user.
+     * @param string $requestKey Activation key of the user.
+     * @return bool
+     */
+    public function activate($email, $requestKey)
+    {
+        if ($this->validateRequestKey($email, $requestKey)) {
+            $user = $this->findByEmailAndRequestKey($email, $requestKey)->first();
+            if ($user->active == 0) {
+                $user->active = 1;
+                $user->activation_key = null;
+                if ($this->save($user)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }
