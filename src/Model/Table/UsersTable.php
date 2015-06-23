@@ -164,7 +164,7 @@ class UsersTable extends Table
         }
     }
 
-    public function afterSave(Event $event, Entity $entity, ArrayObject $options) {
+    public function afterSave($event, $entity, $options) {
         if($entity->isNew()) {
             $event = new Event('Model.Users.afterRegister', $this, [
                 'user' => $entity
@@ -234,7 +234,7 @@ class UsersTable extends Table
             $user = $this->findByEmailAndRequestKey($email, $requestKey)->first();
             if ($user->active == 0) {
                 $user->active = 1;
-                $user->activation_key = null;
+                $user->request_key = null;
                 if ($this->save($user)) {
                     return true;
                 }
