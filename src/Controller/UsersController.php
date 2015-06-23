@@ -75,7 +75,7 @@ class UsersController extends AppController
         }
 
         // If the email and key doesn't match
-        if (!$this->Users->validateActivationKey($email, $requestKey)) {
+        if (!$this->Users->validateRequestKey($email, $requestKey)) {
             $this->Flash->error(__('Your account could not be activated.'));
             return $this->redirect('/login');
         }
