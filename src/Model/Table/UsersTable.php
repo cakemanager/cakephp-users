@@ -50,7 +50,6 @@ class UsersTable extends Table
                 'email',
                 'new_password' => [
                     'type' => 'password',
-                    'help' => 'help!'
                 ],
                 'confirm_password' => [
                     'type' => 'password'
@@ -63,11 +62,20 @@ class UsersTable extends Table
             'tableColumns' => [
                 'id' => [],
                 'email' => [],
+                'role_id' => [
+                    'get' => 'role.name'
+                ],
                 'created' => []
             ],
             'filters' => [
                 'email'
-            ]
+            ],
+            'query' => function($query) {
+
+                $query->contain(['Roles']);
+
+                return $query;
+            }
         ];
     }
 
