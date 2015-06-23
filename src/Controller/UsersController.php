@@ -41,28 +41,42 @@ class UsersController extends AppController
         }
     }
 
+    /**
+     * Logout action
+     *
+     * Logs out the logged in user.
+     *
+     * @return \Cake\Network\Response|void
+     */
     public function logout()
     {
         $this->Flash->success(__('You are now logged out.'));
         return $this->redirect($this->Auth->logout());
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id User id.
-     * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function view($id = null)
+    public function activate($email = null, $requestKey = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => []
-        ]);
-        $this->set('user', $user);
-        $this->set('_serialize', ['user']);
-    }
+        // Redirect if user is already logged in
+        if ($this->authUser) {
+            return $this->redirect('/login');
+        }
 
+        // If the email and key doesn't match
+        if (!$this->Users->validateActivationKey($email, $requestKey)) {
+            $this->Flash->error(__('Your account could not be activated.'));
+            return $this->redirect('/login');
+        }
+
+        // If the user has been activated
+        if ($this->Users->activateUser($email, $requestKey)) {
+            $this->Flash->success(__('Congratulations! Your account has been activated!'));
+            return $this->redirect('/login');
+        }
+
+        // If noting happened. Just for safety :)
+        $this->Flash->error(__('Your account could not be activated.'));
+        return $this->redirect('/login');
+    }
 
     /**
      * Forgot password action
