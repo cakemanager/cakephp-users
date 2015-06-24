@@ -81,7 +81,7 @@ class UsersTable extends Table
 
     public function beforeFind($event, $query, $options, $primary)
     {
-        $query->where(['Users.cakeadmin' => 0]);
+        $query->where([$this->alias().'.cakeadmin' => 0]);
     }
 
     /**
