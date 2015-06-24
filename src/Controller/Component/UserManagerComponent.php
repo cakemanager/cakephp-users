@@ -31,6 +31,7 @@ class UserManagerComponent extends Component
      */
     protected $_defaultConfig = [
         'auth' => [
+            'authorize' => 'Controller',
             'authenticate' => [
                 'Basic' => [
                     'userModel' => 'Users.Users'
