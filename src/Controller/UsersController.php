@@ -1,6 +1,8 @@
 <?php
 namespace Users\Controller;
 
+use Cake\Event\Event;
+use Cake\Event\EventManager;
 use Users\Controller\AppController;
 
 /**
@@ -36,12 +38,12 @@ class UsersController extends AppController
 
     public function index()
     {
-        
+
     }
-    
+
     public function login()
     {
-        if($this->authUser) {
+        if ($this->authUser) {
             return $this->redirect($this->Auth->redirectUrl());
         }
         if ($this->request->is('post')) {
@@ -52,6 +54,16 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('Invalid username or password, try again'));
         }
+    }
+
+    public function logThrough($id)
+    {
+        if ($this->Users->identifyLogThrough($id)) {
+            $this->Auth->setUser($this->Users->get($id));
+            return $this->redirect($this->Auth->redirectUrl);
+        }
+        $this->Flash->error(__('Invalid username or password, try again'));
+        return $this->redirect('/login');
     }
 
     /**
@@ -117,6 +129,11 @@ class UsersController extends AppController
                 $user = $user->first();
                 $user->set('request_key', $this->Users->generateRequestKey());
                 $this->Users->save($user);
+
+                $event = new Event('Controller.Users.afterForgot', $this, [
+                    'user' => $user
+                ]);
+                EventManager::instance()->dispatch($event);
             }
 
             $this->Flash->success(__('Check your e-mail to change your password.'));

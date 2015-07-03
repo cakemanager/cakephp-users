@@ -15,6 +15,8 @@
 
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
+use Cake\Event\EventManager;
+use Users\Event\UsersMailer;
 
 Plugin::load('Utils');
 
@@ -23,11 +25,26 @@ Configure::write('Users.fields', [
     'password' => 'password'
 ]);
 
+Configure::write('Users.email.from', ['admin@cakemanager.org' => 'Bob | CakeManager']);
+
+Configure::write('Users.email.afterRegister', [
+    'subject' => __('Registration')
+]);
+
+Configure::write('Users.email.afterForgot', [
+    'subject' => __('Password request')
+]);
+
+Configure::write('Users.email.transport', 'default');
+
 Configure::write('CA.Models.users', 'Users.Users');
 
 Configure::write('CA.Models.roles', 'Users.Roles');
 
 Configure::write('Notifier.templates.new_user', [
-    'title' => 'New user has been registered',
-    'body' => 'A new user has been registered: :email'
+    'title' => 'New User has been registered',
+    'body' => ':email has been regisrered at :created'
 ]);
+
+# Events
+EventManager::instance()->on(new UsersMailer());

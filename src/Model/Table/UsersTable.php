@@ -65,6 +65,7 @@ class UsersTable extends Table
                 'role_id' => [
                     'get' => 'role.name'
                 ],
+                'active',
                 'created' => []
             ],
             'filters' => [
@@ -75,8 +76,25 @@ class UsersTable extends Table
                 $query->contain(['Roles']);
 
                 return $query;
-            }
+            },
         ];
+    }
+
+    public function enableLogThrough($entity)
+    {
+        $entity->set('log_through', true);
+        $this->save($entity);
+    }
+
+    public function identifyLogThrough($id)
+    {
+        $entity = $this->get($id);
+        if($entity->get('log_through') === true) {
+            $entity->set('log_through', false);
+            $this->save($entity);
+            return true;
+        }
+        return false;
     }
 
     public function beforeFind($event, $query, $options, $primary)
@@ -169,6 +187,12 @@ class UsersTable extends Table
 
         if (!empty($newPassword)) {
             $entity->set('password', $entity->new_password); // set for password-changes
+        }
+
+        if($entity->isNew()) {
+            if($entity->get('active') !== 1) {
+                $entity->set('request_key', $this->generateRequestKey());
+            }
         }
     }
 
