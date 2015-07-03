@@ -1,5 +1,7 @@
 # Users plugin for CakePHP
 
+[![Join the chat at https://gitter.im/cakemanager/cakephp-users](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cakemanager/cakephp-users?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 > Note: This is a non-stable plugin for CakePHP 3.x at this time. It is currently under development and should be considered experimental.
 
 ## Installation
