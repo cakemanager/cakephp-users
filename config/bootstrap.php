@@ -18,8 +18,11 @@ use Cake\Core\Plugin;
 use Cake\Event\EventManager;
 use Users\Event\UsersMailer;
 
+# Plugins
 Plugin::load('Utils');
 
+
+# Settings
 Configure::write('Users.fields', [
     'username' => 'email',
     'password' => 'password'
@@ -37,6 +40,8 @@ Configure::write('Users.email.afterForgot', [
 
 Configure::write('Users.email.transport', 'default');
 
+
+# Settings for CakeAdmin
 Configure::write('CA.Models.users', 'Users.Users');
 
 Configure::write('CA.Models.roles', 'Users.Roles');
