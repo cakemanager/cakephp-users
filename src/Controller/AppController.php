@@ -37,7 +37,6 @@ class AppController extends BaseController
 
     public function beforeRender(Event $event)
     {
-        $this->set('authUser', $this->authUser);
         $this->set('title', $this->name);
 
         // @ToDo Implement event
