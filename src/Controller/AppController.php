@@ -15,6 +15,7 @@
 namespace Users\Controller;
 
 use App\Controller\AppController as BaseController;
+use Cake\Core\Configure;
 use Cake\Event\Event;
 
 class AppController extends BaseController
@@ -22,6 +23,9 @@ class AppController extends BaseController
 
     public function beforeFilter(Event $event)
     {
+        $this->theme = Configure::read('CA.theme');
+        $this->viewClass = Configure::read('CA.viewClass');
+
         if ($this->authUser) {
             $this->layout = 'Users.default';
         } else {
@@ -29,6 +33,14 @@ class AppController extends BaseController
         }
 
         parent::beforeFilter($event);
+    }
+
+    public function beforeRender(Event $event)
+    {
+        $this->set('authUser', $this->authUser);
+        $this->set('title', $this->name);
+
+        // @ToDo Implement event
     }
 
 }
