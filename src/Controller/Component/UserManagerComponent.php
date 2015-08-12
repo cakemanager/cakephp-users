@@ -33,9 +33,6 @@ class UserManagerComponent extends Component
         'auth' => [
             'authorize' => 'Controller',
             'authenticate' => [
-                'Basic' => [
-                    'userModel' => 'Users.Users'
-                ],
                 'Form' => [
                     'userModel' => 'Users.Users',
                     'fields' => [
@@ -46,20 +43,24 @@ class UserManagerComponent extends Component
                 ],
             ],
             'loginAction' => [
+                'prefix' => false,
                 'plugin' => 'Users',
                 'controller' => 'Users',
                 'action' => 'login'
             ],
             'loginRedirect' => [
+                'prefix' => false,
                 'plugin' => 'Users',
                 'controller' => 'Users',
                 'action' => 'index'
             ],
             'logoutRedirect' => [
+                'prefix' => false,
                 'plugin' => 'Users',
                 'controller' => 'Users',
                 'action' => 'login'
             ],
+            'unauthorizedRedirect' => false,
         ]
     ];
 
