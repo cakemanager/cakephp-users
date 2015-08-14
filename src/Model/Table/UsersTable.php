@@ -21,6 +21,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Notifier\Utility\NotificationManager;
 use Users\Model\Entity\User;
 
 /**
@@ -71,7 +72,7 @@ class UsersTable extends Table
             'filters' => [
                 'email'
             ],
-            'query' => function($query) {
+            'query' => function ($query) {
 
                 $query->contain(['Roles']);
 
@@ -89,7 +90,7 @@ class UsersTable extends Table
     public function identifyLogThrough($id)
     {
         $entity = $this->get($id);
-        if($entity->get('log_through') === true) {
+        if ($entity->get('log_through') === true) {
             $entity->set('log_through', false);
             $this->save($entity);
             return true;
@@ -99,7 +100,7 @@ class UsersTable extends Table
 
     public function beforeFind($event, $query, $options, $primary)
     {
-        $query->where([$this->alias().'.cakeadmin' => 0]);
+        $query->where([$this->alias() . '.cakeadmin' => 0]);
     }
 
     /**
@@ -189,15 +190,26 @@ class UsersTable extends Table
             $entity->set('password', $entity->new_password); // set for password-changes
         }
 
-        if($entity->isNew()) {
-            if($entity->get('active') !== 1) {
+        if ($entity->isNew()) {
+            if ($entity->get('active') !== 1) {
                 $entity->set('request_key', $this->generateRequestKey());
             }
         }
     }
 
-    public function afterSave($event, $entity, $options) {
-        if($entity->isNew()) {
+    public function afterSave($event, $entity, $options)
+    {
+        if ($entity->isNew()) {
+
+            NotificationManager::instance()->notify([
+                'recipientLists' => ['administrators'],
+                'template' => 'new_user',
+                'vars' => [
+                    'email' => $entity->get('email'),
+                    'created' => $entity->get('created')
+                ]
+            ]);
+
             $event = new Event('Model.Users.afterRegister', $this, [
                 'user' => $entity
             ]);

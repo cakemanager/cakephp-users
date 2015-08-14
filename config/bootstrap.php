@@ -47,8 +47,8 @@ Configure::write('CA.Models.users', 'Users.Users');
 Configure::write('CA.Models.roles', 'Users.Roles');
 
 Configure::write('Notifier.templates.new_user', [
-    'title' => 'New User has been registered',
-    'body' => ':email has been regisrered at :created'
+    'title' => ':email has been registered.',
+    'body' => ':email has been registered at :created.'
 ]);
 
 # Events
