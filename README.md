@@ -8,6 +8,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configurations](#configurations)
+- [UserManager Component(#usermanager-component)
 - [CakeAdmin](#cakeadmin)
 - [Keep in Touch](#keep-in-touch)
 
@@ -79,6 +80,36 @@ There are some configurations for email:
 - `Users.email.transport` - The transport to use. Default set to `default`.
 - `Users.email.afterRegister.subject` - The subject of the email sent when an user has been registered.
 - `Users.email.afterForget.subject` - The subject of the email sent when an user forgot his password.
+
+### Users.defaultController
+The plugin has a default controller which contains all default user-related actions (login, logout, reset, forgot).
+There may be times that you want to use your own controller. You can disable the default built-in controller by setting
+`Users.defaultController` to `false`:
+
+    Configure::write('Users.defaultController', false);
+
+When you do this, the routes for the plugin are not set, and trying to reach te controller will fail because you will be
+redirected to the previous location.
+
+> Note: This feature can be helpfull by using the user-management only for your
+[API](https://github.com/cakemanager/cakephp-api).
+
+
+## UserManager Component
+
+The UserManager Component default handles the Auth for your app. However, this component is also helpful to add user-
+related actions to your system! By calling the login-function (`$this->UserManager->login()`) you are using the
+login-action. The same is for:
+
+- `login()` - Logs the user in.
+- `logout()` - Logs the user off.
+- `activate($email, $requestKey)` - Activates the user. Don't forget to pass the variables.
+- `forgot` - User leaves his e-mailaddress to receive an e-mail to set a new password.
+- `reset($email, $requestKey)` - Creates a new password for the user. Don't forget to pass the variables.
+
+This methods can be helpful when you want to customize your user-related actions.
+
+> Note: Don't forget to set the `Users.defaultController` configuration to `false`, mentioned above!
 
 
 ## CakeAdmin

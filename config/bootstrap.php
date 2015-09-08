@@ -51,5 +51,7 @@ Configure::write('Notifier.templates.new_user', [
     'body' => ':email has been registered at :created.'
 ]);
 
+Configure::write('Users.defaultController', false);
+
 # Events
 EventManager::instance()->on(new UsersMailer());

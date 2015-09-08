@@ -13,23 +13,27 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 use Cake\Routing\Router;
+use Cake\Core\Configure;
 
-Router::plugin('Users', ['path' => '/users'], function ($routes) {
+if (Configure::read('Users.defaultController')) {
 
-    $routes->connect(
-        '/', ['controller' => 'Users', 'action' => 'login']
-    );
+    Router::plugin('Users', ['path' => '/users'], function ($routes) {
 
-    $routes->fallbacks('InflectedRoute');
-});
+        $routes->connect(
+            '/', ['controller' => 'Users', 'action' => 'login']
+        );
 
-/**
- * Default login-url
- */
-Router::connect('/login', ['plugin' => 'Users', 'prefix' => false, 'controller' => 'Users', 'action' => 'login']);
+        $routes->fallbacks('InflectedRoute');
+    });
 
-/**
- * Default login-url
- */
-Router::connect('/logout', ['plugin' => 'Users', 'prefix' => false, 'controller' => 'Users', 'action' => 'logout']);
+    /**
+     * Default login-url
+     */
+    Router::connect('/login', ['plugin' => 'Users', 'prefix' => false, 'controller' => 'Users', 'action' => 'login']);
 
+    /**
+     * Default login-url
+     */
+    Router::connect('/logout', ['plugin' => 'Users', 'prefix' => false, 'controller' => 'Users', 'action' => 'logout']);
+
+}

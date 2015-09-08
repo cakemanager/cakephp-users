@@ -1,6 +1,20 @@
 <?php
+/**
+ * CakeManager (http://cakemanager.org)
+ * Copyright (c) http://cakemanager.org
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) http://cakemanager.org
+ * @link          http://cakemanager.org CakeManager Project
+ * @since         1.0
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
 namespace Users\Controller;
 
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Event\EventManager;
 use Users\Controller\AppController;
@@ -15,7 +29,12 @@ class UsersController extends AppController
 
     public function initialize()
     {
+        if(!Configure::read('Users.defaultController')) {
+            $this->redirect($this->referer());
+        }
+
         parent::initialize();
+
     }
 
     /**
@@ -38,26 +57,17 @@ class UsersController extends AppController
 
     public function index()
     {
-
+        // index page for logged in users. Used by default
     }
 
     public function login()
     {
-        if ($this->authUser) {
-            return $this->redirect($this->Auth->redirectUrl());
-        }
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
-            }
-            $this->Flash->error(__('Invalid username or password, try again'));
-        }
+        return $this->UserManager->login();
     }
 
     public function logThrough($id)
     {
+        // in development
         if ($this->Users->identifyLogThrough($id)) {
             $this->Auth->setUser($this->Users->get($id));
             return $this->redirect($this->Auth->redirectUrl);
@@ -75,32 +85,12 @@ class UsersController extends AppController
      */
     public function logout()
     {
-        $this->Flash->success(__('You are now logged out.'));
-        return $this->redirect($this->Auth->logout());
+        return $this->UserManager->logout();
     }
 
     public function activate($email = null, $requestKey = null)
     {
-        // Redirect if user is already logged in
-        if ($this->authUser) {
-            return $this->redirect('/login');
-        }
-
-        // If the email and key doesn't match
-        if (!$this->Users->validateRequestKey($email, $requestKey)) {
-            $this->Flash->error(__('Your account could not be activated.'));
-            return $this->redirect('/login');
-        }
-
-        // If the user has been activated
-        if ($this->Users->activate($email, $requestKey)) {
-            $this->Flash->success(__('Congratulations! Your account has been activated!'));
-            return $this->redirect('/login');
-        }
-
-        // If noting happened. Just for safety :)
-        $this->Flash->error(__('Your account could not be activated.'));
-        return $this->redirect('/login');
+        return $this->UserManager->activate($email, $requestKey);
     }
 
     /**
@@ -118,27 +108,7 @@ class UsersController extends AppController
      */
     public function forgot()
     {
-        // Redirect if user is already logged in
-        if ($this->authUser) {
-            return $this->redirect('/login');
-        }
-
-        if ($this->request->is('post')) {
-            $user = $this->Users->findByEmail($this->request->data['email']);
-            if ($user->Count()) {
-                $user = $user->first();
-                $user->set('request_key', $this->Users->generateRequestKey());
-                $this->Users->save($user);
-
-                $event = new Event('Controller.Users.afterForgot', $this, [
-                    'user' => $user
-                ]);
-                EventManager::instance()->dispatch($event);
-            }
-
-            $this->Flash->success(__('Check your e-mail to change your password.'));
-            return $this->redirect($this->Auth->config('loginAction'));
-        }
+        return $this->UserManager->forgot();
     }
 
     /**
@@ -153,37 +123,7 @@ class UsersController extends AppController
      */
     public function reset($email, $requestKey = null)
     {
-        // Redirect if user is already logged in
-        if ($this->authUser) {
-            $this->Flash->error(__('Your account could not be activated.'));
-            return $this->redirect($this->Auth->config('loginAction'));
-        }
-
-        // If the email and key doesn't match
-        if (!$this->Users->validateRequestKey($email, $requestKey)) {
-            $this->Flash->error(__('Your account could not be activated.'));
-            return $this->redirect($this->Auth->config('loginAction'));
-        }
-
-        // If we passed and the POST isset
-        if ($this->request->is('post')) {
-            $user = $this->Users->find()->where([
-                'email' => $email,
-                'request_key' => $requestKey,
-            ])->first();
-
-            if ($user) {
-                $user = $this->Users->patchEntity($user, $this->request->data);
-                $user->set('active', 1);
-                $user->set('request_key', null);
-
-                if ($this->Users->save($user)) {
-                    $this->Flash->success(__('Your password has been changed.'));
-                    return $this->redirect($this->Auth->config('loginAction'));
-                }
-            }
-            $this->Flash->error(__('Your account could not be activated.'));
-        }
+        return $this->UserManager->reset($email, $requestKey);
     }
 
 }
