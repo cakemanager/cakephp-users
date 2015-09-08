@@ -8,7 +8,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configurations](#configurations)
-- [UserManager Component(#usermanager-component)
+- [UserManager Component](#usermanager-component)
 - [CakeAdmin](#cakeadmin)
 - [Keep in Touch](#keep-in-touch)
 
