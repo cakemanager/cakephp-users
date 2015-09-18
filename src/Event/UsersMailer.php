@@ -31,10 +31,13 @@ class UsersMailer implements EventListenerInterface
      */
     public function implementedEvents()
     {
-        return [
-            'Model.Users.afterRegister' => 'afterRegister',
-            'Controller.Users.afterForgot' => 'afterForgot',
-        ];
+        if (Configure::read('Users.email')) {
+            return [
+                'Model.Users.afterRegister' => 'afterRegister',
+                'Controller.Users.afterForgot' => 'afterForgot',
+            ];
+        }
+
     }
 
     public function afterRegister($event, $user)

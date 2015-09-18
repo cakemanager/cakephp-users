@@ -28,17 +28,17 @@ Configure::write('Users.fields', [
     'password' => 'password'
 ]);
 
-Configure::write('Users.email.from', ['admin@cakemanager.org' => 'Bob | CakeManager']);
 
-Configure::write('Users.email.afterRegister', [
-    'subject' => __('Registration')
-]);
-
-Configure::write('Users.email.afterForgot', [
-    'subject' => __('Password request')
-]);
-
-Configure::write('Users.email.transport', 'default');
+if (Configure::read('Users.email') !== false) {
+    Configure::write('Users.email.from', ['admin@cakemanager.org' => 'Bob | CakeManager']);
+    Configure::write('Users.email.afterRegister', [
+        'subject' => __('Registration')
+    ]);
+    Configure::write('Users.email.afterForgot', [
+        'subject' => __('Password request')
+    ]);
+    Configure::write('Users.email.transport', 'default');
+}
 
 
 # Settings for CakeAdmin
