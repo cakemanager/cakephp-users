@@ -23,9 +23,9 @@ class AppController extends BaseController
     public function beforeFilter(Event $event)
     {
         if ($this->authUser) {
-            $this->layout = 'Users.default';
+            $this->viewBuilder()->layout = 'Users.default';
         } else {
-            $this->layout = 'Users.login';
+            $this->viewBuilder()->layout = 'Users.login';
         }
 
         parent::beforeFilter($event);
