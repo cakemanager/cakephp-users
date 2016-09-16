@@ -56,9 +56,8 @@ class Initial extends AbstractMigration
                     'limit' => 11,
                     'null' => true,
                 ])
-                ->addColumn('active', 'integer', [
-                    'default' => 0,
-                    'limit' => 11,
+                ->addColumn('active', 'boolean', [
+                    'default' => false,
                     'null' => true,
                 ])
                 ->addColumn('request_key', 'string', [
@@ -90,9 +89,8 @@ class Initial extends AbstractMigration
             }
             if (!$table->hasColumn('active')) {
                 $table
-                    ->addColumn('active', 'integer', [
-                        'default' => 0,
-                        'limit' => 11,
+                    ->addColumn('active', 'boolean', [
+                        'default' => false,
                         'null' => true,
                     ])
                     ->save();
