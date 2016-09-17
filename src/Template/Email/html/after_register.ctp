@@ -1,18 +1,18 @@
 <p style="font-family: Calibri, Arial">
-    Hello <?= $user->email ?>,
+    <?= __d('users', 'Hello') ?> <?= $user->email ?>,
 </p>
 
 <p style="font-family: Calibri, Arial">
-    Welcome to <a href="<?= $baseUrl ?>"><?= $baseUrl ?></a>!<br>
-    You need to activate your account first via this url: <a href="<?= $activationUrl ?>">Activation</a>.
+    <?= __d('users', 'Welcome to')?> <a href="<?= $baseUrl ?>"><?= $baseUrl ?></a>!<br>
+    <?= __d('users', 'You need to activate your account first via this url:') ?> <a href="<?= $activationUrl ?>"><?= __d('users', 'Activation') ?></a>.
 </p>
 
 <p style="font-family: Calibri, Arial">
-    After activating you are able to login at: <a href="<?= $loginUrl ?>"><?= $loginUrl ?></a>.
+    <?= __d('users', 'After activating you are able to login at:') ?> <a href="<?= $loginUrl ?>"><?= $loginUrl ?></a>.
 </p>
 
 <p style="font-family: Calibri, Arial">
-    Greetz,
+    <?= __d('users', 'Greetz,') ?>
 </p>
 
 <p style="font-family: Calibri, Arial">

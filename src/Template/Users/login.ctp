@@ -18,11 +18,11 @@ use Cake\Core\Configure;
     <?= $this->Flash->render('auth') ?>
     <?= $this->Form->create() ?>
     <fieldset>
-        <legend><?= __('Login') ?></legend>
+        <legend><?= __d('users', 'Login') ?></legend>
         <?= $this->Form->input(Configure::read('Users.fields.username')) ?>
         <?= $this->Form->input(Configure::read('Users.fields.password'), ['value' => '']) ?>
     </fieldset>
-    <?= $this->Form->button(__('Login')); ?>
+    <?= $this->Form->button(__d('users', 'Login')); ?>
     <?= $this->Form->end() ?>
     <?= $this->Html->link('Forgot password', ['action' => 'forgot']); ?>
 </div>
