@@ -44,17 +44,23 @@ class UsersMailer implements EventListenerInterface
     {
         if ($user->get('active') !== 1) {
             $email = new Email('default');
-
+            $activationUrl = [
+                'prefix' => false,
+                'plugin' => 'Users',
+                'controller' => 'Users',
+                'action' => 'activate',
+            ];
+            
+            if (Configure::check('Users.activationUrl')) {
+                $activationUrl = Configure::read('Users.activationUrl');
+            }
+            
+            $activationUrl[] = $user['email'];
+            $activationUrl[] = $user['request_key'];
+            
             $email->viewVars([
                 'user' => $user,
-                'activationUrl' => Router::fullBaseUrl() . Router::url([
-                        'prefix' => false,
-                        'plugin' => 'Users',
-                        'controller' => 'Users',
-                        'action' => 'activate',
-                        $user['email'],
-                        $user['request_key']
-                    ]),
+                'activationUrl' => Router::fullBaseUrl() . Router::url($activationUrl),
                 'baseUrl' => Router::fullBaseUrl(),
                 'loginUrl' => Router::fullBaseUrl() . '/login',
             ]);
@@ -72,17 +78,24 @@ class UsersMailer implements EventListenerInterface
     public function afterForgot($event, $user)
     {
         $email = new Email('default');
-
+        
+        $resetUrl = [
+            'prefix' => false,
+            'plugin' => 'Users',
+            'controller' => 'Users',
+            'action' => 'reset',
+        ];
+        
+        if (Configure::check('Users.resetUrl')) {
+            $resetUrl = Configure::read('Users.resetUrl');
+        }
+        
+        $resetUrl[] = $user['email'];
+        $resetUrl[] = $user['request_key'];
+        
         $email->viewVars([
             'user' => $user,
-            'resetUrl' => Router::fullBaseUrl() . Router::url([
-                    'prefix' => false,
-                    'plugin' => 'Users',
-                    'controller' => 'Users',
-                    'action' => 'reset',
-                    $user['email'],
-                    $user['request_key']
-                ]),
+            'resetUrl' => Router::fullBaseUrl() . Router::url($resetUrl),
             'baseUrl' => Router::fullBaseUrl(),
             'loginUrl' => Router::fullBaseUrl() . '/login',
         ]);

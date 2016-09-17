@@ -1,0 +1,125 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2016-09-17 17:54+0000\n"
+"PO-Revision-Date: 2016-09-17 19:56+0100\n"
+"Last-Translator: Márton Miklós <martonmiklosqdev@gmail.com>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: Hungarian\n"
+
+#: Controller/UsersController.php:75
+#: Controller/Component/UserManagerComponent.php:107
+msgid "Invalid username or password, try again"
+msgstr "Érvénytelen felhasználónév/jelszó"
+
+#: Controller/Component/UserManagerComponent.php:113
+msgid "You are now logged out."
+msgstr "Sikeres kijelentkezés"
+
+#: Controller/Component/UserManagerComponent.php:126;137;170;176;197
+msgid "Your account could not be activated."
+msgstr "A felhasználói fiókod aktiválása sikertelen"
+
+#: Controller/Component/UserManagerComponent.php:132
+msgid "Congratulations! Your account has been activated!"
+msgstr "A felhasználói fiókod sikeresen aktiválva"
+
+#: Controller/Component/UserManagerComponent.php:161
+msgid "Check your e-mail to change your password."
+msgstr "A jelszó visszaállító e-mailt sikeresen elküldtük az e-mail címedre."
+
+#: Controller/Component/UserManagerComponent.php:193
+msgid "Your password has been changed."
+msgstr "A jelszavad sikeresen megváltoztatva"
+
+#: Model/Table/UsersTable.php:147;158
+msgid "Passwords are not equal."
+msgstr "A megadott jelszavak nem egyeznek meg"
+
+#: Template/Email/html/after_forgot.ctp:2
+#: Template/Email/html/after_register.ctp:2
+#: Template/Email/text/after_forgot.ctp:1
+#: Template/Email/text/after_register.ctp:1
+msgid "Hello"
+msgstr "Szia"
+
+#: Template/Email/html/after_forgot.ctp:6
+#: Template/Email/text/after_forgot.ctp:3
+msgid "You've got this e-mail because you lost your password at"
+msgstr ""
+"Azért kaptad ezt az e-mailt mert valaki jelszóvisszaállítást kért itt: "
+
+#: Template/Email/html/after_forgot.ctp:7
+#: Template/Email/text/after_forgot.ctp:4
+msgid "Via the following url you will be able to set a new password:"
+msgstr "A következő linken adhatod meg az új jelszavadat: "
+
+#: Template/Email/html/after_forgot.ctp:11
+#: Template/Email/text/after_forgot.ctp:6
+msgid "After you've chosen your new password you are able to login at:"
+msgstr "Az új jelszó megadása után itt tudsz majd bejelentkezni:"
+
+#: Template/Email/html/after_forgot.ctp:16
+msgid "If you didn't request a new password, you can ignore this e-mail."
+msgstr ""
+"Ha nem te igényeltél jelszóvisszaállítást, nyugodtan hagyd figyelmen kívül "
+"ezt az e-mailt."
+
+#: Template/Email/html/after_forgot.ctp:20
+#: Template/Email/html/after_register.ctp:15
+#: Template/Email/text/after_forgot.ctp:10
+#: Template/Email/text/after_register.ctp:8
+msgid "Greetz,"
+msgstr "Üdvözlettel,"
+
+#: Template/Email/html/after_register.ctp:6
+#: Template/Email/text/after_register.ctp:3
+msgid "Welcome to"
+msgstr "Üdvözöllek itt"
+
+#: Template/Email/html/after_register.ctp:7
+#: Template/Email/text/after_register.ctp:4
+msgid "You need to activate your account first via this url:"
+msgstr "A felhasználói fiókodat először aktiválnod kell itt:"
+
+#: Template/Email/html/after_register.ctp:7
+msgid "Activation"
+msgstr "Aktiválás"
+
+#: Template/Email/html/after_register.ctp:11
+#: Template/Email/text/after_register.ctp:6
+msgid "After activating you are able to login at:"
+msgstr "Az új jelszó megadása után itt tudsz majd bejelentkezni:"
+
+#: Template/Email/text/after_forgot.ctp:8
+msgid "If you didn't requested a new password, you can ignore this e-mail."
+msgstr ""
+"Ha nem te igényeltél jelszóvisszaállítást, nyugodtan hagyd figyelmen kívül "
+"ezt az e-mailt."
+
+#: Template/Users/forgot.ctp:21
+msgid "Forgot password"
+msgstr "Elfelejtett jelszó"
+
+#: Template/Users/forgot.ctp:24
+msgid "Request"
+msgstr "Igénylés"
+
+#: Template/Users/forgot.ctp:26 Template/Users/login.ctp:21;25
+msgid "Login"
+msgstr "Bejelentkezés"
+
+#: Template/Users/reset.ctp:5
+msgid "New Password"
+msgstr "Új jelszó"
+
+#: Template/Users/reset.ctp:9
+msgid "Save"
+msgstr "Mentés"
