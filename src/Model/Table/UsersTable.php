@@ -144,7 +144,7 @@ class UsersTable extends Table
                     }
                     return true;
                 },
-                'message' => __('Passwords are not equal.'),
+                'message' => __d('users', 'Passwords are not equal.'),
             ]);
 
         $validator
@@ -155,7 +155,7 @@ class UsersTable extends Table
                     }
                     return true;
                 },
-                'message' => __('Passwords are not equal.'),
+                'message' => __d('users', 'Passwords are not equal.'),
             ]);
 
         return $validator;

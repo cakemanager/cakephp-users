@@ -18,6 +18,7 @@ use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Event\Event;
 
+
 /**
  * UserManager component
  */
@@ -103,13 +104,13 @@ class UserManagerComponent extends Component
                 $this->Controller->Auth->setUser($user);
                 return $this->Controller->redirect($this->Controller->Auth->redirectUrl());
             }
-            $this->Flash->error(__('Invalid username or password, try again'));
+            $this->Flash->error(__d('users', 'Invalid username or password, try again'));
         }
     }
 
     public function logout()
     {
-        $this->Controller->Flash->success(__('You are now logged out.'));
+        $this->Controller->Flash->success(__d('users', 'You are now logged out.'));
         return $this->Controller->redirect($this->Controller->Auth->logout());
     }
 
@@ -122,18 +123,18 @@ class UserManagerComponent extends Component
 
         // If the email and key doesn't match
         if (!$this->Controller->Users->validateRequestKey($email, $requestKey)) {
-            $this->Controller->Flash->error(__('Your account could not be activated.'));
+            $this->Controller->Flash->error(__d('users', 'Your account could not be activated.'));
             return $this->Controller->redirect('/login');
         }
 
         // If the user has been activated
         if ($this->Controller->Users->activate($email, $requestKey)) {
-            $this->Controller->Flash->success(__('Congratulations! Your account has been activated!'));
+            $this->Controller->Flash->success(__d('users', 'Congratulations! Your account has been activated!'));
             return $this->Controller->redirect('/login');
         }
 
         // If noting happened. Just for safety :)
-        $this->Controller->Flash->error(__('Your account could not be activated.'));
+        $this->Controller->Flash->error(__d('users', 'Your account could not be activated.'));
         return $this->Controller->redirect('/login');
     }
 
@@ -157,7 +158,7 @@ class UserManagerComponent extends Component
                 EventManager::instance()->dispatch($event);
             }
 
-            $this->Controller->Flash->success(__('Check your e-mail to change your password.'));
+            $this->Controller->Flash->success(__d('users', 'Check your e-mail to change your password.'));
             return $this->Controller->redirect($this->Controller->Auth->config('loginAction'));
         }
     }
@@ -166,13 +167,13 @@ class UserManagerComponent extends Component
     {
         // Redirect if user is already logged in
         if ($this->Controller->authUser) {
-            $this->Controller->Flash->error(__('Your account could not be activated.'));
+            $this->Controller->Flash->error(__d('users', 'Your account could not be activated.'));
             return $this->Controller->redirect($this->Controller->Auth->config('loginAction'));
         }
 
         // If the email and key doesn't match
         if (!$this->Controller->Users->validateRequestKey($email, $requestKey)) {
-            $this->Controller->Flash->error(__('Your account could not be activated.'));
+            $this->Controller->Flash->error(__d('users', 'Your account could not be activated.'));
             return $this->Controller->redirect($this->Controller->Auth->config('loginAction'));
         }
 
@@ -189,11 +190,11 @@ class UserManagerComponent extends Component
                 $user->set('request_key', null);
 
                 if ($this->Controller->Users->save($user)) {
-                    $this->Controller->Flash->success(__('Your password has been changed.'));
+                    $this->Controller->Flash->success(__d('users', 'Your password has been changed.'));
                     return $this->Controller->redirect($this->Controller->Auth->config('loginAction'));
                 }
             }
-            $this->Controller->Flash->error(__('Your account could not be activated.'));
+            $this->Controller->Flash->error(__d('users', 'Your account could not be activated.'));
         }
     }
 }

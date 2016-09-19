@@ -79,7 +79,7 @@ There are some configurations for email:
 - `Users.email.from` - Array to define the sender. Default `['admin@cakemanager.org' => 'Bob | CakeManager']`.
 - `Users.email.transport` - The transport to use. Default set to `default`.
 - `Users.email.afterRegister.subject` - The subject of the email sent when an user has been registered.
-- `Users.email.afterForget.subject` - The subject of the email sent when an user forgot his password.
+- `Users.email.afterForgot.subject` - The subject of the email sent when an user forgot his password.
 
 ### Users.defaultController
 The plugin has a default controller which contains all default user-related actions (login, logout, reset, forgot).

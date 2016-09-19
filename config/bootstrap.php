@@ -32,10 +32,10 @@ Configure::write('Users.fields', [
 if (Configure::read('Users.email') !== false) {
     Configure::write('Users.email.from', ['admin@cakemanager.org' => 'Bob | CakeManager']);
     Configure::write('Users.email.afterRegister', [
-        'subject' => __('Registration')
+        'subject' => __d('users', 'Registration')
     ]);
     Configure::write('Users.email.afterForgot', [
-        'subject' => __('Password request')
+        'subject' => __d('users', 'Password request')
     ]);
     Configure::write('Users.email.transport', 'default');
 }
